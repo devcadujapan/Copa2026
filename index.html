@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Tabela da Copa 2026</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #006400, #00a84f, #008000);
+        background-size: 400% 400%;
+        animation: gradient 12s ease infinite;
+        color: white;
+        text-align: center;
+    }
+
+    @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .container {
+        margin-top: 60px;
+    }
+
+    .flags {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        margin-bottom: 30px;
+    }
+
+    .flags img {
+        height: 120px;
+        filter: drop-shadow(0 0 8px rgba(0,0,0,0.4));
+    }
+
+    h1 {
+        font-size: 42px;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    }
+
+    p {
+        font-size: 20px;
+        margin-bottom: 40px;
+        opacity: 0.9;
+    }
+
+    /* Botão */
+    .btn-download {
+        display: inline-block;
+        background: #FFD700;
+        color: #000;
+        padding: 16px 32px;
+        border-radius: 10px;
+        font-size: 22px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: 0.3s;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .btn-download:hover {
+        background: #ffea4d;
+        transform: scale(1.07);
+        box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    }
+
+    /* Mensagem */
+    .update-msg {
+        margin-top: 35px;
+        font-size: 18px;
+        background: rgba(255,255,255,0.15);
+        padding: 14px 20px;
+        border-radius: 10px;
+        display: inline-block;
+        backdrop-filter: blur(4px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    /* Contador */
+    #contador {
+        margin-top: 40px;
+        font-size: 32px;
+        font-weight: bold;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    }
+
+    /* Bandeiras - NOVO ESTILO EM BLOCOS */
+    .countries {
+        margin-top: 60px;
+        padding: 20px;
+    }
+
+    .countries h2 {
+        font-size: 32px;
+        margin-bottom: 30px;
+    }
+
+    .countries-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: center;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .group-block {
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(8px);
+        border: 2px solid rgba(255, 215, 0, 0.5);
+        border-radius: 16px;
+        padding: 1.2rem;
+        width: 260px;
+        transition: transform 0.3s;
+    }
+
+    .group-block:hover {
+        transform: translateY(-5px);
+        border-color: #FFD700;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .group-block h3 {
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        color: #FFD700;
+        font-size: 1.5rem;
+        border-bottom: 1px solid rgba(255,215,0,0.3);
+        padding-bottom: 8px;
+    }
+
+    .group-countries {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .country-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.5rem;
+        background: rgba(255,255,255,0.1);
+        border-radius: 10px;
+        transition: all 0.2s;
+    }
+
+    .country-item:hover {
+        background: rgba(255,255,255,0.2);
+        transform: translateX(5px);
+    }
+
+    .country-item img {
+        width: 48px;
+        height: 32px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .country-sigla {
+        font-size: 14px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Calendário */
+    .calendar {
+        margin-top: 60px;
+        padding: 20px;
+    }
+
+    .calendar h2 {
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+    .match {
+        background: rgba(255,255,255,0.15);
+        padding: 12px;
+        margin: 10px auto;
+        max-width: 500px;
+        border-radius: 10px;
+        font-size: 18px;
+        backdrop-filter: blur(4px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    footer {
+        margin-top: 60px;
+        font-size: 16px;
+        opacity: 0.7;
+        padding-bottom: 20px;
+        font-weight: bold;
+        color: #000000;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Bandeiras principais -->
+    <div class="flags">
+        <img src="https://flagcdn.com/w320/br.png" alt="Brasil">
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5c/2026_FIFA_World_Cup_logo.svg/640px-2026_FIFA_World_Cup_logo.svg.png" alt="">
+    </div>
+
+    <h1>📊 Tabela da Copa do Mundo 2026</h1>
+    <p>Baixe a planilha oficial atualizada em Excel</p>
+
+    <!-- Botão -->
+    <a href="https://raw.githubusercontent.com/devcadujapan/Copa2026/main/Copa_2026.xlsx" 
+       download 
+       class="btn-download">
+       📥 Baixar Tabela (Excel)
+    </a>
+
+    <!-- Mensagem -->
+    <div class="update-msg">
+        🔄 A tabela será atualizada automaticamente com os resultados dos jogos ao longo da Copa.
+    </div>
+
+    <!-- Contador -->
+    <div id="contador">Carregando contador...</div>
+
+    <!-- Bandeiras dos países - ORGANIZADO EM BLOCOS -->
+    <div class="countries">
+        <h2>🌎 Países Participantes - Copa do Mundo 2026</h2>
+
+        <div class="countries-grid">
+
+            <!-- Grupo A -->
+            <div class="group-block">
+                <h3>Grupo A</h3>
+                <div class="group-countries">
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/mx.png" alt="México">
+                        <span class="country-sigla">México (MX)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/za.png" alt="África do Sul">
+                        <span class="country-sigla">África do Sul (ZA)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/kr.png" alt="Coreia do Sul">
+                        <span class="country-sigla">Coreia do Sul (KR)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/cz.png" alt="República Tcheca">
+                        <span class="country-sigla">Rep. Tcheca (CZ)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grupo B -->
+            <div class="group-block">
+                <h3>Grupo B</h3>
+                <div class="group-countries">
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/ca.png" alt="Canadá">
+                        <span class="country-sigla">Canadá (CA)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/ba.png" alt="Bósnia e Herzegovina">
+                        <span class="country-sigla">Bósnia (BA)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/qa.png" alt="Catar">
+                        <span class="country-sigla">Catar (QA)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/ch.png" alt="Suíça">
+                        <span class="country-sigla">Suíça (CH)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grupo C -->
+            <div class="group-block">
+                <h3>Grupo C</h3>
+                <div class="group-countries">
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/br.png" alt="Brasil">
+                        <span class="country-sigla">Brasil (BR)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/ma.png" alt="Marrocos">
+                        <span class="country-sigla">Marrocos (MA)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/ht.png" alt="Haiti">
+                        <span class="country-sigla">Haiti (HT)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/gb-sct.png" alt="Escócia">
+                        <span class="country-sigla">Escócia (SCO)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grupo D -->
+            <div class="group-block">
+                <h3>Grupo D</h3>
+                <div class="group-countries">
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/us.png" alt="Estados Unidos">
+                        <span class="country-sigla">EUA (US)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/py.png" alt="Paraguai">
+                        <span class="country-sigla">Paraguai (PY)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/au.png" alt="Austrália">
+                        <span class="country-sigla">Austrália (AU)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/tr.png" alt="Turquia">
+                        <span class="country-sigla">Turquia (TR)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grupo E -->
+            <div class="group-block">
+                <h3>Grupo E</h3>
+                <div class="group-countries">
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/de.png" alt="Alemanha">
+                        <span class="country-sigla">Alemanha (DE)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/cw.png" alt="Curaçao">
+                        <span class="country-sigla">Curaçao (CW)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/ci.png" alt="Costa do Marfim">
+                        <span class="country-sigla">Costa do Marfim (CI)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/ec.png" alt="Equador">
+                        <span class="country-sigla">Equador (EC)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grupo F -->
+            <div class="group-block">
+                <h3>Grupo F</h3>
+                <div class="group-countries">
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/nl.png" alt="Países Baixos">
+                        <span class="country-sigla">Holanda (NL)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/jp.png" alt="Japão">
+                        <span class="country-sigla">Japão (JP)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/se.png" alt="Suécia">
+                        <span class="country-sigla">Suécia (SE)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/tn.png" alt="Tunísia">
+                        <span class="country-sigla">Tunísia (TN)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grupo G -->
+            <div class="group-block">
+                <h3>Grupo G</h3>
+                <div class="group-countries">
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/be.png" alt="Bélgica">
+                        <span class="country-sigla">Bélgica (BE)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/eg.png" alt="Egito">
+                        <span class="country-sigla">Egito (EG)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/ir.png" alt="Irã">
+                        <span class="country-sigla">Irã (IR)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/nz.png" alt="Nova Zelândia">
+                        <span class="country-sigla">Nova Zelândia (NZ)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grupo H -->
+            <div class="group-block">
+                <h3>Grupo H</h3>
+                <div class="group-countries">
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/es.png" alt="Espanha">
+                        <span class="country-sigla">Espanha (ES)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/cv.png" alt="Cabo Verde">
+                        <span class="country-sigla">Cabo Verde (CV)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/sa.png" alt="Arábia Saudita">
+                        <span class="country-sigla">Arábia Saudita (SA)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/uy.png" alt="Uruguai">
+                        <span class="country-sigla">Uruguai (UY)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grupo I -->
+            <div class="group-block">
+                <h3>Grupo I</h3>
+                <div class="group-countries">
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/fr.png" alt="França">
+                        <span class="country-sigla">França (FR)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/sn.png" alt="Senegal">
+                        <span class="country-sigla">Senegal (SN)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/iq.png" alt="Iraque">
+                        <span class="country-sigla">Iraque (IQ)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/no.png" alt="Noruega">
+                        <span class="country-sigla">Noruega (NO)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grupo J -->
+            <div class="group-block">
+                <h3>Grupo J</h3>
+                <div class="group-countries">
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/ar.png" alt="Argentina">
+                        <span class="country-sigla">Argentina (AR)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/dz.png" alt="Argélia">
+                        <span class="country-sigla">Argélia (DZ)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/at.png" alt="Áustria">
+                        <span class="country-sigla">Áustria (AT)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/jo.png" alt="Jordânia">
+                        <span class="country-sigla">Jordânia (JO)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grupo K -->
+            <div class="group-block">
+                <h3>Grupo K</h3>
+                <div class="group-countries">
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/pt.png" alt="Portugal">
+                        <span class="country-sigla">Portugal (PT)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/cd.png" alt="Rep. Democrática do Congo">
+                        <span class="country-sigla">Congo DR (CD)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/uz.png" alt="Uzbequistão">
+                        <span class="country-sigla">Uzbequistão (UZ)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/co.png" alt="Colômbia">
+                        <span class="country-sigla">Colômbia (CO)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grupo L -->
+            <div class="group-block">
+                <h3>Grupo L</h3>
+                <div class="group-countries">
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/gb-eng.png" alt="Inglaterra">
+                        <span class="country-sigla">Inglaterra (ENG)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/hr.png" alt="Croácia">
+                        <span class="country-sigla">Croácia (HR)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/gh.png" alt="Gana">
+                        <span class="country-sigla">Gana (GH)</span>
+                    </div>
+                    <div class="country-item">
+                        <img src="https://flagcdn.com/w80/pa.png" alt="Panamá">
+                        <span class="country-sigla">Panamá (PA)</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        Desenvolvido por Carlos Hisaba • GitHub Pages
+    </footer>
+
+</div>
+
+<!-- SCRIPT DO CONTADOR -->
+<script>
+    function atualizarContador() {
+        const dataCopa = new Date("June 11, 2026 00:00:00").getTime();
+        const agora = new Date().getTime();
+        const diff = dataCopa - agora;
+
+        if (diff <= 0) {
+            document.getElementById("contador").innerHTML = "🏆 A Copa começou!";
+            return;
+        }
+
+        const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const horas = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutos = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const segundos = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById("contador").innerHTML =
+            `⏳ Faltam ${dias} dias, ${horas}h ${minutos}m ${segundos}s para a Copa 2026`;
+    }
+
+    setInterval(atualizarContador, 1000);
+</script>
+
+</body>
+</html>
